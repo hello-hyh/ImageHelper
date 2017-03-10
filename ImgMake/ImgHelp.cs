@@ -68,7 +68,13 @@ namespace WebSite.Config
             imgBack.Save(saveImagePath, ImageFormat.Png);
             return imgBack;
         }
-
+        /// <summary>
+        /// 生成一个带二维码的和文字的图片
+        /// 注意生成的坐标和保存的路径
+        /// </summary>
+        /// <param name="fileName">背景图</param>
+        /// <param name="str">图片上的文字</param>
+        /// <param name="imgFileName">二维码</param>
         public static void CatImg(string fileName, string str,string imgFileName)
         {
             //string img2Patn = @"E:\tbt\toubaotuan\WebSite\WebSite\Img\2.jpg";
