@@ -1,0 +1,6 @@
+E:\ImgMake\ImgMake\bin\Debug\ImgMake.exe.config
+E:\ImgMake\ImgMake\bin\Debug\ImgMake.exe
+E:\ImgMake\ImgMake\bin\Debug\ImgMake.pdb
+E:\ImgMake\ImgMake\obj\Debug\ImgMake.exe
+E:\ImgMake\ImgMake\obj\Debug\ImgMake.pdb
+E:\ImgMake\ImgMake\obj\Debug\ImgMake.csprojResolveAssemblyReference.cache
