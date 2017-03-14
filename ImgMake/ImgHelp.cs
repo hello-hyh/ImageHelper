@@ -5,8 +5,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
-
-namespace WebSite.Config
+using Gma.QrCodeNet.Encoding;
+using Gma.QrCodeNet.Encoding.Windows.Render;
+namespace Help.Helper
 {
     public class ImgHelp
     {
@@ -68,28 +69,53 @@ namespace WebSite.Config
             imgBack.Save(saveImagePath, ImageFormat.Png);
             return imgBack;
         }
+
+        /// <summary>
+        /// 生成自定义二维码图片
+        /// </summary>
+        /// <param name="str">二维码扫描内容</param>
+        /// <param name="savePath">保存的路径</param>
+        /// <param name="openid">用于表示图片的主人</param>
+
+        public static void CatQR(string str, string savePath)
+        {
+            QrEncoder qrEncoder = new QrEncoder(ErrorCorrectionLevel.M);
+            QrCode qrCode = qrEncoder.Encode(str);
+            //保存成png文件
+
+            GraphicsRenderer render = new GraphicsRenderer(new FixedModuleSize(5, QuietZoneModules.Two), Brushes.Black, Brushes.White);
+            using (FileStream stream = new FileStream(savePath, FileMode.Create))
+            {
+                render.WriteToStream(qrCode.Matrix, ImageFormat.Png, stream);
+            }
+        }
+
+
         /// <summary>
         /// 生成一个带二维码的和文字的图片
         /// 注意生成的坐标和保存的路径
+        /// 并下载微信头像
         /// </summary>
         /// <param name="fileName">背景图</param>
-        /// <param name="str">图片上的文字</param>
+        /// <param name="str">分享者的名字</param>
         /// <param name="imgFileName">二维码</param>
-        public static void CatImg(string fileName, string str,string imgFileName)
+        /// <param name="imgUrl">头像url</param>
+        /// <param name="imgUrlFilePath">头像保存路径</param>
+        
+        
+        public static void CatImg(string fileName, string str, string imgFileName, string savePath)
         {
-            //string img2Patn = @"E:\tbt\toubaotuan\WebSite\WebSite\Img\2.jpg";
-            //string QrFilePath = @"E:\tbt\toubaotuan\WebSite\WebSite\Img\QR.png";
             Image QRImg = Image.FromFile(imgFileName);
             Bitmap bmp = new Bitmap(fileName);
             Graphics g = Graphics.FromImage(bmp);
-            str = "陈志恒邀请你参加投保团";
-            Font font = new Font("宋体", 20);
+            //str = "陈志恒邀请你参加投保团";
+            str = str + "邀请你参加投保团";
+            Font font = new Font("宋体", 30);
             SolidBrush sbrush = new SolidBrush(Color.Black);
-            g.DrawString(str, font, sbrush, new PointF(260, 360));
-            g.DrawImage(QRImg, new PointF(260, 200));
-            bmp.Save(@"E:\tbt\bmp.png");
+            g.DrawString(str, font, sbrush, new PointF(300, 1129));
+            g.DrawImage(QRImg, new PointF(362, 1329));
+            bmp.Save(savePath);
         }
-
         enum ImageMergeOrientation
         {
             Horizontal,
